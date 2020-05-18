@@ -50,7 +50,7 @@ int main(void) {
 										"6. Reanudar prestamo\n"
 										"7. Mostrar la lista de clientes\n"
 										"8. Mostrar la lista de prestamos\n"
-										"9. Informar clientes\n", 1, 9, 2))
+										"9. Informar clientes\n", "La opcion ingresada es incorrecta\n", 1, 10, 2))
 
 		{
 			switch(opcion)
