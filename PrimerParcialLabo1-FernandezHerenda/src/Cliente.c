@@ -53,7 +53,7 @@ int imprimirCliente(Cliente* aCliente)
 		if(aCliente != NULL && aCliente->isEmpty == 0)
 		{
 			retorno=0;
-			printf("\nID: %d\nNombre: %s\nApellido: %s\nCuil: %s",aCliente->ID+1,aCliente->nombre,aCliente->apellido,aCliente->cuil);
+			printf("\nID: %d\nNombre: %s\nApellido: %s\nCuil: %s",aCliente->ID,aCliente->nombre,aCliente->apellido,aCliente->cuil);
 		}
 		return retorno;
 
@@ -68,7 +68,10 @@ int imprimirArrayClientes(Cliente* aCliente,int len)
 		respuesta = 0;
 		for(i=0;i<len;i++)
 		{
-			imprimirCliente(&aCliente[i]);
+			if(aCliente[i].isEmpty==0)
+			{
+				imprimirCliente(&aCliente[i]);
+			}
 		}
 	}
 	return respuesta;
@@ -85,7 +88,7 @@ int altaDeCLiente(Cliente* aCliente, int len, int indice, int* id)
 		if(utn_getNombre(bufferCliente.nombre,len,"Ingrese el nombre: \n", "ERROR, reingrese", 2)==0 && utn_getNombre(bufferCliente.apellido,len,"Ingrese el apellido: \n", "ERROR, reingrese", 2)==0 && utn_getCuil(bufferCliente.cuil, 20,"Ingrese el CUIL: \n", "Error, reingrese", 2)==0)
 		{
 				respuesta = 0;
-				bufferCliente.ID= *id;
+				bufferCliente.ID= (*id)+1;
 				bufferCliente.isEmpty = 0;
 				aCliente[indice] = bufferCliente;
 				(*id)++;

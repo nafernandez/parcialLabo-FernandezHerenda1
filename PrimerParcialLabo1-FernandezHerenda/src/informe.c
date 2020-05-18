@@ -62,3 +62,23 @@ int cantidadDePrestamosParaCliente(Prestamo* aPrestamo, int lenPrestamos, int id
 	return contadorDePrestamos;
 }
 
+int mostrarCantidadPrestamosMayoresAImporteSeleccionado(Prestamo* aPrestamo, int len, int importe)
+{
+	int respuesta=-1;
+	int i;
+	int cantidadDePrestamosMayoresAMilPesos=0;
+
+	for(i=0; i< len; i++)
+	{
+		respuesta=0;
+		if(aPrestamo[i].importe>1000 && aPrestamo[i].importe==importe && aPrestamo[i].isEmpty== 0)
+		{
+			cantidadDePrestamosMayoresAMilPesos++;
+		}
+
+	}
+	printf("La cantidad de prestamos mayores a $1000 de importe $%d son: %d\n", importe, cantidadDePrestamosMayoresAMilPesos);
+	return respuesta;
+}
+
+

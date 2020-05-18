@@ -98,7 +98,7 @@ int altaDePrestamo(Prestamo* aPrestamo, int len, int indicePrestamoVacio, int* i
 
 	if(aPrestamo != NULL && len > 0 && indicePrestamoVacio < len && indicePrestamoVacio >= 0 && idPrestamo != NULL)
 	{
-		if(utn_getNumeroFlotante(&bufferPrestamo.importe, "\nIngrese el importe a solicitar\n", "\nError, no se puede solicitar ese importe\n", 1000, 100000, 1)==0 && utn_getNumero(&bufferPrestamo.cuotas, "Ingrese el numero de cuotas", "Error, reingrese el numero de cuotas", 1, 48, 1)==0)
+		if(utn_getNumeroFlotante(&bufferPrestamo.importe, "\nIngrese el importe a solicitar\n", "\nError, no se puede solicitar ese importe\n", 100, 100000, 1)==0 && utn_getNumero(&bufferPrestamo.cuotas, "Ingrese el numero de cuotas", "Error, reingrese el numero de cuotas", 1, 48, 1)==0)
 		{
 			bufferPrestamo.idCliente=idCliente;
 			bufferPrestamo.idPrestamo= *idPrestamo+1;
@@ -178,4 +178,22 @@ int buscarPrestamoPorIdDePrestamo(Prestamo* aPrestamo, int len, int id)
 	}
 	return respuesta;
 }
+
+int darDeBajaPrestamoACliente(Prestamo* aPrestamo, int len, int idCliente)
+{
+	int respuesta=-1;
+	int i;
+	for(i=0; i< len; i++)
+	{
+		respuesta=0;
+		if(aPrestamo[i].idCliente==idCliente)
+		{
+			aPrestamo[i].isEmpty=1;
+		}
+	}
+	return respuesta;
+}
+
+
+
 

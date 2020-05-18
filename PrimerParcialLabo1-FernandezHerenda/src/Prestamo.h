@@ -97,4 +97,13 @@ int imprimirArrayPrestamoFiltradoPorSaldado(Prestamo* aPrestamo, int len, int sa
  *
  */
 int buscarPrestamoPorIdDePrestamo(Prestamo* aPrestamo, int len, int id);
+/**
+ * \brief Da de baja al prestamo de un cliente
+ * \param aPrestamo para usar el array completo
+ * \param longitud Es la longitud del array resultado
+ * \param ID del cliente
+ * return Retorna 0 (EXITO) y -1 (ERROR)
+ *
+ */
+int darDeBajaPrestamoACliente(Prestamo* aPrestamo, int len, int idCliente);
 #endif /* PRESTAMO_H_ */

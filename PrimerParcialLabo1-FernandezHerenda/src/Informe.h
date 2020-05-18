@@ -30,4 +30,13 @@ int mostrarClienteConMasPrestamos(Cliente* aCliente, int lenClientes, Prestamo* 
  */
 int cantidadDePrestamosParaCliente(Prestamo* aPrestamo, int lenPrestamos, int idCliente,int saldados);
 
+/**
+* \brief DMuestra la cantidad de prestamos mayores a $1000
+ * \param aPrestamo para usar el array entero
+ * \param  Limite del array de prestamos
+ *\param importe ingresado por el usuario
+ * \return Retorna el contador de prestamos
+ *
+ */
+int mostrarCantidadPrestamosMayoresAImporteSeleccionado(Prestamo* aPrestamo, int len, int importe);
 #endif /* INFORME_H_ */

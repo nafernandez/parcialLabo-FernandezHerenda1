@@ -35,6 +35,7 @@ int main(void) {
 	int opcionPrestamo;
 	int i;
 	int opcionClientes;
+	int auxiliarImporte;
 
 	if(inicializarCliente(arrayCliente, QTY_CLIENTES)==0 && inicializarPrestamo(arrayPrestamo, QTY_PRESTAMOS)==0)
 	{
@@ -50,7 +51,8 @@ int main(void) {
 										"6. Reanudar prestamo\n"
 										"7. Mostrar la lista de clientes\n"
 										"8. Mostrar la lista de prestamos\n"
-										"9. Informar clientes\n", "La opcion ingresada es incorrecta\n", 1, 10, 2))
+										"9. Informar clientes\n"
+										"10. Informar prestamos\n", "La opcion ingresada es incorrecta\n", 1, 10, 2))
 
 		{
 			switch(opcion)
@@ -89,9 +91,10 @@ int main(void) {
 				if(utn_getNumero(&auxiliarIdCliente, "\nIndique el ID a eliminar: \n", "Error, reingrese el ID\n",0, QTY_CLIENTES, 0)==0)
 				{
 					auxiliarIndice = buscarClientePorId(arrayCliente,QTY_CLIENTES,auxiliarIdCliente);
-					if(	auxiliarIndice >= 0 &&
-							buscarClientePorId(arrayCliente,QTY_CLIENTES,auxiliarIndice)== 0)
+					if(	auxiliarIndice >= 0)
 					{
+						darDeBajaCliente(arrayCliente, QTY_CLIENTES, auxiliarIndice);
+						darDeBajaPrestamoACliente(arrayPrestamo,QTY_PRESTAMOS,auxiliarIdCliente);
 						printf("\nBaja realizada con exito\n");
 					}
 				 }
@@ -106,8 +109,7 @@ int main(void) {
 					if(utn_getNumero(&auxiliarIdCliente, "\nIndique el ID del cliente al que le quiere asignar un prestamo: \n", "Error, reingrese el ID\n",0, QTY_CLIENTES, 0)==0)
 					{
 						altaDePrestamo(&arrayPrestamo, QTY_PRESTAMOS,  auxiliarIndice, &auxiliarIdPrestamo, auxiliarIdCliente);
-						 imprimirPrestamo(&arrayPrestamo);
-
+						imprimirPrestamo(&arrayPrestamo[auxiliarIndice]);
 					}
 
 				}
@@ -117,7 +119,7 @@ int main(void) {
 				imprimirArrayClientes(arrayCliente, QTY_CLIENTES);
 				if(utn_getNumero(&auxiliarIdCliente, "\nIndique el ID del cliente al que quiere saldar un prestamo: \n", "Error, reingrese el ID\n",0, QTY_CLIENTES, 0)==0)
 				{
-					imprimirArrayPrestamoFiltradoPorSaldado(arrayPrestamo, QTY_PRESTAMOS, 0,-1 );
+					imprimirArrayPrestamoFiltradoPorSaldado(arrayPrestamo, QTY_PRESTAMOS, 0,auxiliarIdCliente);
 					if(utn_getNumero(&auxiliarIdPrestamo, "\nIndique el ID del prestamo al que quiere saldar: \n", "Error, reingrese el ID\n",0, QTY_PRESTAMOS, 0)==0)
 					{
 
@@ -190,6 +192,10 @@ int main(void) {
 						break;
 					}
 				}
+				break;
+			case 10:
+				if(utn_getNumero(&auxiliarImporte, "\nIndique el importe para filtrar los prestamos con importes mayores a $1000 :\n", "Error, reingrese el importe\n",1000, 100000, 0)==0)
+				mostrarCantidadPrestamosMayoresAImporteSeleccionado(arrayPrestamo, QTY_PRESTAMOS,auxiliarImporte );
 				break;
 				}
 			}
