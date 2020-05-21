@@ -11,21 +11,6 @@
 #include <stdio_ext.h>
 #include "utn.h"
 
-
-/**
- * \brief Solicita un número al usuario y devuelve el resultado
- * \param mensaje Es el mensaje a ser mostrado
- * \return El número ingresado por el usuario
- *
- */
-/*float getFloat(char mensaje[])
-{
-    float auxiliar;
-    printf("%s",mensaje);
-    scanf("%f",&auxiliar);
-    return auxiliar;
-}*/
-
  int esNumerica(char* cadena, int limite)
 {
 	int retorno = -1; // ERROR
@@ -44,9 +29,7 @@
 				retorno = 0;
 				break;
 			}
-			//CONTINUE
 		}
-		//BREAK
 	}
 	return retorno;
 }
@@ -99,29 +82,6 @@ char getChar(char mensaje[])
     scanf("%c",&auxiliar);
     return auxiliar;
 }
-/**
- * \brief Genera un número aleatorio
- * \param desde Número aleatorio mínimo
- * \param hasta Número aleatorio máximo
- * \param iniciar Indica si se trata del primer número solicitado 1 indica que si
- * \return retorna el número aleatorio generado
- *
- */
-/*char getNumeroAleatorio(int desde , int hasta, int iniciar)
-{
-    if(iniciar)
-        srand (time(NULL));
-    return desde + (rand() % (hasta + 1 - desde)) ;
-}
-*/
-
-/**
- * \brief Verifica si el valor recibido es numérico aceptando flotantes
- * \param str Array con la cadena a ser analizada
- * \return 1 si es númerico y 0 si no lo es
- *
- */
-
 int esNumericoFlotante(char str[])
 {
    int i=0;
@@ -141,37 +101,6 @@ int esNumericoFlotante(char str[])
    }
    return 1;
 }
-
-/**
- * \brief Verifica si la cadena ingresada es numerica
- * \param cadena Cadena de caracteres a ser analizada
- * \return Retorna 1 (verdadero) si la cadena es numerica, 0 (falso) si no lo es y -1 en caso de error
- *
- */
-/*static int esNumerica(char* cadena, int limite)
-{
-	int retorno = -1; // ERROR
-	int i;
-	if(cadena != NULL && limite > 0)
-	{
-		retorno = 1; // VERDADERO
-		for(i=0;i<limite && cadena[i] != '\0';i++)
-		{
-			if(i==0 && (cadena[i] == '+' || cadena[i] == '-'))
-			{
-				continue;
-			}
-			if(cadena[i] < '0'||cadena[i] > '9')
-			{
-				retorno = 0;
-				break;
-			}
-			//CONTINUE
-		}
-		//BREAK
-	}
-	return retorno;
-}*/
 
 int esSoloLetras(char str[])
 {
@@ -207,66 +136,12 @@ int esTelefono(char str[])
             contadorGuiones++;
        i++;
    }
-   if(contadorGuiones==1) // debe tener un guion
+   if(contadorGuiones==1)
         return 1;
 
     return 0;
 }
 
-/**
- * \brief Solicita un texto al usuario y lo devuelve
- * \param mensaje Es el mensaje a ser mostrado
- * \param input Array donde se cargará el texto ingresado
- * \return 1 si el texto contiene solo letras
- */
-/*int getStringLetras(char mensaje[],char input[])
-{
-    char aux[256];
-    getString(mensaje,aux);
-    if(esSoloLetras(aux))
-    {
-        strcpy(input,aux);
-        return 1;
-    }
-    return 0;
-}*/
-
-/**
- * \brief Solicita un texto numérico al usuario y lo devuelve
- * \param mensaje Es el mensaje a ser mostrado
- * \param input Array donde se cargará el texto ingresado
- * \return 1 si el texto contiene solo números
- */
-/*int getStringNumeros(char mensaje[],char input[])
-{
-    char aux[256];
-    getString(mensaje,aux);
-    if(esNumerico(aux))
-    {
-        strcpy(input,aux);
-        return 1;
-    }
-    return 0;
-}
-*/
-
-/**
- * \brief Solicita un texto numérico al usuario y lo devuelve (acepta flotantes)
- * \param mensaje Es el mensaje a ser mostrado
- * \param input Array donde se cargará el texto ingresado
- * \return 1 si el texto contiene solo números
- */
-/*int getStringNumerosFlotantes(char mensaje[],char input[])
-{
-    char aux[256];
-    getString(mensaje,aux);
-    if(esNumericoFlotante(aux))
-    {
-        strcpy(input,aux);
-        return 1;
-    }
-    return 0;
-}*/
 int esNombre(char* cadena,int longitud)
 {
 	int i=0;
@@ -324,12 +199,6 @@ int utn_getNombre(char* pResultado, int longitud,char* mensaje, char* mensajeErr
 	return retorno;
 }
 
-/**
- * \brief Obtiene un string valido como DNI
- * \param pResultado Puntero al espacio de memoria donde se dejara el resultado de la funcion
- * \return Retorna 0 (EXITO) si se obtiene un numero flotante y -1 (ERROR) si no
- *
- */
 static int getCuil(char* pResultado, int longitud)
 {
     int retorno=-1;
@@ -366,38 +235,6 @@ int utn_getCuil(char* pResultado, int longitud,char* mensaje, char* mensajeError
 	}
 	return retorno;
 }
-
-/**
- * \brief Solicita un numero flotante al usuario, luego de verificarlo devuelve el resultado
- * \param pResultado Puntero al espacio de memoria donde se dejara el resultado de la funcion
- * \param mensaje Es el mensaje a ser mostrado
- * \param mensajeError Es el mensaje de Error a ser mostrado
- * \param minimo Es el numero maximo a ser aceptado
- * \param maximo Es el minimo minimo a ser aceptado
- * \return Retorna 0 si se obtuvo el numero flotante y -1 si no
- *
- */
-/*int utn_getNumeroFlotante(float* pResultado, char* mensaje, char* mensajeError, float minimo, float maximo, int reintentos)
-{
-	float bufferFloat;
-	int retorno = -1;
-	while(reintentos>=0)
-	{
-		reintentos--;
-		printf("%s",mensaje);
-		if(getFloat(&bufferFloat) == 0)
-		{
-			if(bufferFloat >= minimo && bufferFloat <= maximo)
-			{
-				*pResultado = bufferFloat;
-				retorno = 0;
-				break;
-			}
-		}
-		printf("%s",mensajeError);
-	}
-	return retorno;
-}*/
 
 int utn_getNumero(int* pResultado, char* mensaje, char* mensajeError, int minimo, int maximo, int reintentos)
 {

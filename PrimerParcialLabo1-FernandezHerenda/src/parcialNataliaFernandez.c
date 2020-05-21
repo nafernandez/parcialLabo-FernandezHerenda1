@@ -25,7 +25,6 @@ int main(void) {
 	setbuf(stdout, NULL);
 	Cliente arrayCliente[QTY_CLIENTES];
 	Prestamo arrayPrestamo[QTY_PRESTAMOS];
-	Prestamo bufferPrestamo;
 	char respuesta;
 	int opcion;
 	int auxiliarIndice=0;
@@ -33,9 +32,10 @@ int main(void) {
 	int auxiliarIdPrestamo=0;
 	int idClientes;
 	int opcionPrestamo;
-	int i;
 	int opcionClientes;
 	int auxiliarImporte;
+	int opcionPrestamos;
+	int auxiliarCuotas;
 
 	if(inicializarCliente(arrayCliente, QTY_CLIENTES)==0 && inicializarPrestamo(arrayPrestamo, QTY_PRESTAMOS)==0)
 	{
@@ -43,15 +43,15 @@ int main(void) {
 	}
 	do{
 		if(!utn_getNumero(&opcion, "Ingrese la opcion a elegir:\n"
-										"1. Alta de clientes\n"
-										"2. Modificar datos de un cliente.\n"
-										"3. Baja de cliente\n"
-										"4.Ingresar un prestamo\n"
-										"5. Saldar prestamo\n"
-										"6. Reanudar prestamo\n"
-										"7. Mostrar la lista de clientes\n"
-										"8. Mostrar la lista de prestamos\n"
-										"9. Informar clientes\n"
+										"1.  Alta de clientes\n"
+										"2.  Modificar datos de un cliente.\n"
+										"3.  Baja de cliente\n"
+										"4.  Ingresar un prestamo\n"
+										"5.  Saldar prestamo\n"
+										"6.  Reanudar prestamo\n"
+										"7.  Mostrar la lista de clientes\n"
+										"8.  Mostrar la lista de prestamos\n"
+										"9.  Informar clientes\n"
 										"10. Informar prestamos\n", "La opcion ingresada es incorrecta\n", 1, 10, 2))
 
 		{
@@ -62,7 +62,7 @@ int main(void) {
 				auxiliarIndice=buscarPrimerPosicionVacia(arrayCliente, QTY_CLIENTES);
 				if(auxiliarIndice>=0)
 				{
-					if(altaDeCLiente(arrayCliente, QTY_CLIENTES, auxiliarIndice, &idClientes) == 0)
+					if(altaDeCliente(arrayCliente, QTY_CLIENTES, auxiliarIndice, &idClientes) == 0)
 					{
 							printf("\nCarga realizada con exito\n");
 
@@ -108,7 +108,7 @@ int main(void) {
 					imprimirArrayClientes(arrayCliente, QTY_CLIENTES);
 					if(utn_getNumero(&auxiliarIdCliente, "\nIndique el ID del cliente al que le quiere asignar un prestamo: \n", "Error, reingrese el ID\n",0, QTY_CLIENTES, 0)==0)
 					{
-						altaDePrestamo(&arrayPrestamo, QTY_PRESTAMOS,  auxiliarIndice, &auxiliarIdPrestamo, auxiliarIdCliente);
+						altaDePrestamo(arrayPrestamo, QTY_PRESTAMOS,  auxiliarIndice, &auxiliarIdPrestamo, auxiliarIdCliente);
 						imprimirPrestamo(&arrayPrestamo[auxiliarIndice]);
 					}
 
@@ -125,7 +125,7 @@ int main(void) {
 
 						printf("\nSeguro que quiere saldarlo? s/n \n");
 						__fpurge(stdin);
-						scanf("%c", &opcionPrestamo);
+						scanf("%d", &opcionPrestamo);
 						if(opcionPrestamo=='s')
 						{
 							saldarPrestamo(arrayPrestamo, QTY_PRESTAMOS,auxiliarIndice);
@@ -148,7 +148,7 @@ int main(void) {
 					{
 						printf("\nSeguro que quiere reanudarlo? s/n \n");
 						__fpurge(stdin);
-						scanf("%c", &opcionPrestamo);
+						scanf("%d", &opcionPrestamo);
 						if(opcionPrestamo=='s')
 						{
 							reanudarPrestamo(arrayPrestamo, QTY_PRESTAMOS,auxiliarIndice );
@@ -166,7 +166,7 @@ int main(void) {
 				imprimirArrayClientes(arrayCliente, QTY_CLIENTES);
 				if(utn_getNumero(&auxiliarIdCliente, "\nIndique el ID del cliente al que quiere mostra los prestamos activos: \n", "Error, reingrese el ID\n",0, QTY_CLIENTES, 0)==0)
 				{
-					imprimirArrayPrestamoFiltradoPorSaldado(arrayPrestamo, QTY_PRESTAMOS, 0,auxiliarIdCliente );
+					imprimirArrayPrestamoFiltradoPorSaldado(arrayPrestamo, QTY_PRESTAMOS, 0,auxiliarIdCliente);
 				}
 				break;
 			case 8:
@@ -182,21 +182,49 @@ int main(void) {
 			case 9:
 				if(utn_getNumero(&opcionClientes, "\nIndique la opcion a elegir:\n"
 													"1. \nCliente con mas prestamos activos\n"
-													"2. \nCliente con mas prestamos saldados", "Error, reingrese la opcion\n",1, 2, 0)==0)
+													"2. \nCliente con mas prestamos saldados"
+													"3. \n Cliente con mas prestamos\n", "Error, reingrese la opcion\n",1, 3, 0)==0)
 				{
 					switch(opcionClientes)
 					{
-						case 1: mostrarClienteConMasPrestamos(arrayCliente, QTY_CLIENTES, arrayPrestamo, QTY_PRESTAMOS, 0);
+						case 1:
+							mostrarClienteConMasPrestamosFiltradoPorSaldado(arrayCliente, QTY_CLIENTES, arrayPrestamo, QTY_PRESTAMOS, 0);
 						 break;
-						case 2: mostrarClienteConMasPrestamos(arrayCliente, QTY_CLIENTES, arrayPrestamo, QTY_PRESTAMOS, 1);
+						case 2:
+							mostrarClienteConMasPrestamosFiltradoPorSaldado(arrayCliente, QTY_CLIENTES, arrayPrestamo, QTY_PRESTAMOS, 1);
 						break;
+						case 3:
+							mostrarClienteConMasPrestamos(arrayCliente, QTY_CLIENTES,arrayPrestamo, QTY_PRESTAMOS);
 					}
 				}
 				break;
 			case 10:
-				if(utn_getNumero(&auxiliarImporte, "\nIndique el importe para filtrar los prestamos con importes mayores a $1000 :\n", "Error, reingrese el importe\n",1000, 100000, 0)==0)
-				mostrarCantidadPrestamosMayoresAImporteSeleccionado(arrayPrestamo, QTY_PRESTAMOS,auxiliarImporte );
-				break;
+				if(utn_getNumero(&opcionPrestamos, "\nIndique la opcion a elegir:\n"
+													"1. \nCantidad de prestamos mayores a $1000\n"
+													"2. \nPrestamos de 12 cuotas saldados\n"
+													"3. \n Prestamos activos con 'n'cantidad de cuotas\n", "Error, reingrese la opcion\n",1, 3, 0)==0)
+				{
+					switch(opcionPrestamos)
+						{
+
+							case 1:
+								if(utn_getNumero(&auxiliarImporte, "\nIndique el importe para filtrar los prestamos con importes mayores a $1000 :\n", "Error, reingrese el importe\n",1000, 100000, 0)==0)
+									{
+										mostrarCantidadPrestamosMayoresAImporteSeleccionado(arrayPrestamo, QTY_PRESTAMOS,auxiliarImporte );
+									}
+								break;
+							case 2:
+								mostrarPrestamosDeDoceCuotasSaldados(arrayPrestamo, QTY_PRESTAMOS);
+								break;
+							case 3:
+								if(utn_getNumero(&auxiliarCuotas, "\nIndique la cantidad de cuotas que desea ver :\n", "Error, reingrese la cantidad de cuotas\n",1, 48, 0)==0)
+
+									{
+										mostrarPrestamosActivosFiltradoPorCantDeCuotas(arrayPrestamo, QTY_PRESTAMOS, auxiliarCuotas);
+									}
+								break;
+						}
+				}
 				}
 			}
 		}

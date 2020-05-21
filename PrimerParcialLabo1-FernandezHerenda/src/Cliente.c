@@ -77,12 +77,11 @@ int imprimirArrayClientes(Cliente* aCliente,int len)
 	return respuesta;
 }
 
-int altaDeCLiente(Cliente* aCliente, int len, int indice, int* id)
+int altaDeCliente(Cliente* aCliente, int len, int indice, int* id)
 {
 	int respuesta=-1;
 	Cliente bufferCliente;
 
-	///if(aCliente != NULL && indice>=0)
 	if(aCliente != NULL && len > 0 && indice < len && indice >= 0 && id != NULL)
 	{
 		if(utn_getNombre(bufferCliente.nombre,len,"Ingrese el nombre: \n", "ERROR, reingrese", 2)==0 && utn_getNombre(bufferCliente.apellido,len,"Ingrese el apellido: \n", "ERROR, reingrese", 2)==0 && utn_getCuil(bufferCliente.cuil, 20,"Ingrese el CUIL: \n", "Error, reingrese", 2)==0)
@@ -108,7 +107,7 @@ int modificarCliente(Cliente* aCliente, int len, int indice)
 		if(aCliente != NULL && len > 0 && indice < len && indice >= 0 && aCliente[indice].isEmpty == 0)
 		{
 			if(	utn_getNombre(bufferCliente.nombre,50,"\nNombre?\n","\nERROR\n",2) == 0 &&
-				utn_getNombre(bufferCliente.nombre,50,"\Apellido?\n","\nERROR\n",2) == 0 &&
+				utn_getNombre(bufferCliente.apellido,50,"\nApellido?\n","\nERROR\n",2) == 0 &&
 				utn_getCuil(bufferCliente.cuil,20,"\nDNI?\n","\nERROR\n",2) == 0
 				)
 			{

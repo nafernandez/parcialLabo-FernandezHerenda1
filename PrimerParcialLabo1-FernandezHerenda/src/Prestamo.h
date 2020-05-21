@@ -15,7 +15,6 @@ typedef struct{
 	int cuotas;
 	int isEmpty;
 	int saldado;
-
 }Prestamo;
 
 /**

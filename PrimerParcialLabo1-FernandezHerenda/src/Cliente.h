@@ -58,7 +58,7 @@ int imprimirArrayClientes(Cliente* aCliente,int len);
  * \return Retorna 0 (EXITO) y -1 (ERROR)
  *
  */
-int altaDeCLiente(Cliente* aCliente, int len, int indice, int* id);
+int altaDeCliente(Cliente* aCliente, int len, int indice, int* id);
 /**
 * \brief Da de alta a un cliente
  * \param aCliente para usar el array entero
