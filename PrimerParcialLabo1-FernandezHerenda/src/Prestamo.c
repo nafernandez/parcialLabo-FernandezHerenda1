@@ -106,7 +106,7 @@ int altaDePrestamo(Prestamo* aPrestamo, int len, int indicePrestamoVacio, int* i
 			respuesta=0;
 			aPrestamo[indicePrestamoVacio]=bufferPrestamo;
 			(*idPrestamo)++;
-			 imprimirPrestamo(&aPrestamo);
+			 imprimirPrestamo(aPrestamo);
 		}
 	}
 
