@@ -182,8 +182,8 @@ int main(void) {
 			case 9:
 				if(utn_getNumero(&opcionClientes, "\nIndique la opcion a elegir:\n"
 													"1. \nCliente con mas prestamos activos\n"
-													"2. \nCliente con mas prestamos saldados"
-													"3. \n Cliente con mas prestamos\n", "Error, reingrese la opcion\n",1, 3, 0)==0)
+													"2. \nCliente con mas prestamos saldados\n"
+													"3. \nCliente con mas prestamos\n", "Error, reingrese la opcion\n",1, 3, 0)==0)
 				{
 					switch(opcionClientes)
 					{
@@ -202,7 +202,7 @@ int main(void) {
 				if(utn_getNumero(&opcionPrestamos, "\nIndique la opcion a elegir:\n"
 													"1. \nCantidad de prestamos mayores a $1000\n"
 													"2. \nPrestamos de 12 cuotas saldados\n"
-													"3. \n Prestamos activos con 'n'cantidad de cuotas\n", "Error, reingrese la opcion\n",1, 3, 0)==0)
+													"3. \nPrestamos activos con 'n' cantidad de cuotas\n", "Error, reingrese la opcion\n",1, 3, 0)==0)
 				{
 					switch(opcionPrestamos)
 						{
@@ -228,7 +228,7 @@ int main(void) {
 				}
 			}
 		}
-		printf("Desea seguir ingresando datos? s/n\n");
+		printf("\nDesea seguir ingresando datos? s/n\n");
 		__fpurge(stdin);
 		scanf("%c", &respuesta);
 	}while(respuesta=='s');
